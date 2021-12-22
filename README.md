@@ -1,82 +1,76 @@
-# KOA后台管理系统实践
+# 前言
+NodeJS全栈开发之后端接口开发基于Node.js+Express+Mysql实现RESTFUL API，接口包括：登录，注册，记住密码，修改密码，退出登录，todoList增删改查CRUD，查询条件筛选，点亮红星标记等。本项目场景虽然简单，但涵盖功能比较齐全，适合初学全栈开发的小伙伴。如果觉得不错的话，请大大们给个:heart:star，也期待大家一起交流学习。
 
-KOA后台管理系统实践
-# server 端
+[在线DEMO演示](http://106.55.168.13:8082/)
 
-`koa + typescript + sequelize + mysql`
+[NodeJS全栈开发一个功能完善的Express项目实战分享](https://juejin.im/post/6844904198551666701)
 
-# 说明
-
-> 数据库文件在/sql 目录下。
-
-1. `xl_admin_data.sql`是带 demo 数据的；
-2. `xl_admin_struct.sql`只有结构；
-
-# 安装和运行
-
-> 请确保已安装 node，mysql
-
-1. 克隆项目
-2. 创建数据库并导入 sql 文件
-3. 修改 src/config/mysqlBase.ts 文件;
-
-```js
-{
-    mysqlName: 'xl_admin',
-    mysqlUserName: 'root',
-    mysqlPassword: 'xunlei@222',
-    mysqlIp: 'localhost',
-}
-
+# 目录结构
+```
+│  app.js                              // 入口文件
+│  ecosystem.config.js                // pm2默认配置文件
+│  package.json                       // npm包管理所需模块及配置信息
+├─db
+│      dbConfig.js                    // mysql数据库基础配置
+├─routes
+│      index.js                       // 初始化路由信息，自定义全局异常处理
+│      tasks.js                       // 任务路由模块
+│      users.js                       // 用户路由模块
+├─services
+│      taskService.js                 // 业务逻辑处理 - 任务相关接口
+│      userService.js                 // 业务逻辑处理 - 用户相关接口
+└─utils
+        constant.js                   // 自定义常量
+        index.js                      // 封装连接mysql模块
+        md5.js                        // 后端封装md5方法
+        user-jwt.js                   // jwt-token验证和解析函数
 ```
 
-4. 进入项目根目录执行：
 
-```shell
-// 安装依赖
-yarn
+# 技术栈
+ * NodeJS v10
+ * express
+ * mysql v5.7
+ * jwt
+ * nodemon
+ * cors
+ * boom
+ * pm2
+ 
+# 功能模块
+* 登录（登出）
+* 注册
+* 记住密码
+* 修改密码
+* todo增删改查
+* 点亮红星标记
+* 查询条件筛选
 
-// 开发环境运行
-yarn dev
-
-// 打包测试环境产物
-yarn build:test
-
-// 运行测试环境环境资源
-yarn serve:test
-
-// 打包部署环境产物
-yarn build:prod
-
-// 运行生产环境资源
-yarn serve:prod
-
-// 检查代码风格
-yarn lint
-
-//停止运行
-yarn stop
+# 下载安装依赖
+```
+git clone https://github.com/jackchen0120/todo-nodejs-api.git
+cd todo-nodejs-api
+npm install 或 yarn
 ```
 
-# 项目部署
+## MySQL安装
 
-```shell
-# 服务器安装pm2，防止node服务挂掉
-$ npm i -s pm2
-# 启动程序，在4000端口启动
-$ pm2 start index.js --name 'server'
+请移步到我的一篇博客[前端必知必会MySQL的那些事儿 - NodeJS全栈成长之路](https://juejin.im/post/5ee6010ef265da76d3188ea8)
 
-# 还可能会用到下面指令
-# 项目重启
-$ pm2 restart all
-# 查看启动的node项目
-$ pm2 list
-# 删除项目进程
-$ pm2 delete server
 
+## 开发模式
+```
+npm start
+```
+运行之后，访问地址：http://localhost:8088
+
+## 生产环境（后台启动服务）
+```
+pm2 start ecosystem.config.js
 ```
 
-# 接口文档
+## 获取更多实操经验及项目源码
 
-项目启动后，访问：
-`http://127.0.0.1:4000/swagger`
+欢迎关注个人公众号：**懒人码农**
+
+<img src="https://img-blog.csdnimg.cn/20200531011333650.png#pic_center?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzE1MDQxOTMx,size_16,color_FFFFFF,t_70" width="200" alt="公众号二维码" />
